@@ -1,0 +1,69 @@
+﻿@model DetailingStudio_v2.Models.Order
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Order</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="OrderPaymentStatus" class="control-label"></label>
+                <select asp-for="OrderPaymentStatus" class="form-control"></select>
+                <span asp-validation-for="OrderPaymentStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalPrice" class="control-label"></label>
+                <input asp-for="TotalPrice" class="form-control" />
+                <span asp-validation-for="TotalPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderDetails" class="control-label"></label>
+                <input asp-for="OrderDetails" class="form-control" />
+                <span asp-validation-for="OrderDetails" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderStatus" class="control-label"></label>
+                <select asp-for="OrderStatus" class="form-control"></select>
+                <span asp-validation-for="OrderStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerID" class="control-label"></label>
+                <input asp-for="CustomerID" class="form-control" />
+                <span asp-validation-for="CustomerID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarBodyType" class="control-label"></label>
+                <select asp-for="CarBodyType" class="form-control"></select>
+                <span asp-validation-for="CarBodyType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderStartTime" class="control-label"></label>
+                <input asp-for="OrderStartTime" class="form-control" />
+                <span asp-validation-for="OrderStartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderEndTime" class="control-label"></label>
+                <input asp-for="OrderEndTime" class="form-control" />
+                <span asp-validation-for="OrderEndTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
