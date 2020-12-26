@@ -1,6 +1,7 @@
 ﻿using DetailingStudio_v2.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DetailingStudio_v2.Models
 {
@@ -14,51 +15,63 @@ namespace DetailingStudio_v2.Models
         /// <summary>
         /// DateTime of when order got created.
         /// </summary>
+        [Timestamp]
+        [Required]
         public DateTime OrderDate { get; set; }
 
         /// <summary>
         /// Order payment status.
         /// </summary>
-        public OrderPaymentStatus OrderPaymentStatus { get; set; }
+        [Required]
+        public OrderPaymentStatus OrderPaymentStatus { get; set; } = OrderPaymentStatus.NotPaid;
 
         /// <summary>
         /// Order total price.
         /// </summary>
+        [Required]
+        [RegularExpression(@"^\d+.?\d{0,2}$")]
         public float TotalPrice { get; set; }
 
         /// <summary>
         /// User message with optional message.
         /// </summary>
+        [MaxLength(200)]
         public string OrderDetails { get; set; }
 
         /// <summary>
         /// Order completion status.
         /// </summary>
-        public OrderStatus OrderStatus { get; set; }
-        
+        [Required]
+        public OrderStatus OrderStatus { get; set; } = OrderStatus.New;
+
         /// <summary>
         /// Orderer ID.
         /// </summary>
+        [Required]
         public int CustomerID { get; set; }
 
         /// <summary>
         /// Car body type.
         /// </summary>
+        [Required]
         public CarBodyType CarBodyType { get; set; }
 
         /// <summary>
         /// List of services in this order.
         /// </summary>
+        [Required]
         public List<Service> Orders { get; set; }
 
         /// <summary>
         /// Approximte order execution start time.
         /// </summary>
+        [Required]
         public DateTime OrderStartTime { get; set; }
 
         /// <summary>
         /// Approximte order execution end time.
         /// </summary>
+        [Required]
         public DateTime OrderEndTime { get; set; }
     }
 }

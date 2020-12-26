@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using DetailingStudio_v2.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DetailingStudio_v2.Data
 {
@@ -12,5 +10,8 @@ namespace DetailingStudio_v2.Data
             : base(options)
         {
         }
+        public DbSet<Affiliate> Affiliates { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Service> Services { get; set; }
     }
 }
