@@ -1,4 +1,5 @@
-﻿@model DetailingStudio_v2.Models.Order
+﻿@using DetailingStudio_v2.Enums;
+@model DetailingStudio_v2.Models.Order
 
 @{
     ViewData["Title"] = "Edit";
@@ -15,7 +16,7 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="OrderPaymentStatus" class="control-label"></label>
-                <select asp-for="OrderPaymentStatus" class="form-control"></select>
+                <select asp-for="OrderPaymentStatus" asp-items="Html.GetEnumSelectList<OrderPaymentStatus>()" class="form-control"></select>
                 <span asp-validation-for="OrderPaymentStatus" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -30,7 +31,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="OrderStatus" class="control-label"></label>
-                <select asp-for="OrderStatus" class="form-control"></select>
+                <select asp-for="OrderStatus" asp-items="Html.GetEnumSelectList<OrderStatus>()" class="form-control"></select>
                 <span asp-validation-for="OrderStatus" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -40,7 +41,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="CarBodyType" class="control-label"></label>
-                <select asp-for="CarBodyType" class="form-control"></select>
+                <select asp-for="CarBodyType" asp-items="Html.GetEnumSelectList<CarBodyType>()" class="form-control"></select>
                 <span asp-validation-for="CarBodyType" class="text-danger"></span>
             </div>
             <div class="form-group">

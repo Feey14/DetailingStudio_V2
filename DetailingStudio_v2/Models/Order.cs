@@ -15,9 +15,7 @@ namespace DetailingStudio_v2.Models
         /// <summary>
         /// DateTime of when order got created.
         /// </summary>
-        [Timestamp]
-        [Required]
-        public DateTime OrderDate { get; set; }
+        public DateTime? OrderDate { get; set; } = DateTime.Now;
 
         /// <summary>
         /// Order payment status.
@@ -59,8 +57,7 @@ namespace DetailingStudio_v2.Models
         /// <summary>
         /// List of services in this order.
         /// </summary>
-        [Required]
-        public List<Service> Orders { get; set; }
+        public List<Service>? Orders { get; set; }
 
         /// <summary>
         /// Approximte order execution start time.

@@ -44,8 +44,10 @@ namespace DetailingStudio_v2.Controllers
         }
 
         // GET: Orders/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.services = await _context.Services.ToListAsync();
+            ViewBag.affiliates = await _context.Affiliates.ToListAsync();
             return View();
         }
 

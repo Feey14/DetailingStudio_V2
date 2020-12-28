@@ -1,6 +1,6 @@
 ﻿namespace DetailingStudio_v2.Enums
 {
-    public enum RoleEnum : short
+    public enum UserRoleEnum : short
     {
         /// <summary>
         /// User role - Administrator
