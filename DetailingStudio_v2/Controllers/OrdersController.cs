@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using DetailingStudio_v2.Data;
 using DetailingStudio_v2.Models;
@@ -14,9 +15,12 @@ namespace DetailingStudio_v2.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public OrdersController(ApplicationDbContext context)
+        private readonly UserManager<IdentityUser> _userManager;
+
+        public OrdersController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Orders
@@ -48,6 +52,7 @@ namespace DetailingStudio_v2.Controllers
         {
             ViewBag.services = await _context.Services.ToListAsync();
             ViewBag.affiliates = await _context.Affiliates.ToListAsync();
+
             return View();
         }
 
@@ -56,10 +61,28 @@ namespace DetailingStudio_v2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,OrderDate,OrderPaymentStatus,TotalPrice,OrderDetails,OrderStatus,CustomerID,CarBodyType,OrderStartTime,OrderEndTime")] Order order)
+        public async Task<IActionResult> Create([Bind("Id,OrderDate,OrderPaymentStatus,TotalPrice,OrderDetails,OrderStatus,CustomerID,CarBodyType,OrderStartTime,OrderEndTime,ServiceIds,AffiliateId,CustomerID")] Order order)
         {
+            ViewBag.affiliates = await _context.Affiliates.ToListAsync();
+            ViewBag.services = await _context.Services.ToListAsync();
             if (ModelState.IsValid)
             {
+                if (User.Identity.IsAuthenticated)
+                {
+                    order.CustomerID = _userManager.GetUserId(User);
+                }
+                
+                foreach(var serviceId in order.ServiceIds)
+                {
+                    var service = await _context.Services
+                .FirstOrDefaultAsync(m => m.Id == serviceId);
+                    if (order == null)
+                    {
+                        return NotFound();
+                    }
+                    // order.OrderEndTime.AddHours(service.OrderExecutionTime);
+                }
+
                 _context.Add(order);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

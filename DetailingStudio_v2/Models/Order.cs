@@ -1,7 +1,9 @@
 ﻿using DetailingStudio_v2.Enums;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DetailingStudio_v2.Models
 {
@@ -28,7 +30,7 @@ namespace DetailingStudio_v2.Models
         /// </summary>
         [Required]
         [RegularExpression(@"^\d+.?\d{0,2}$")]
-        public float TotalPrice { get; set; }
+        public float TotalPrice { get; set; } 
 
         /// <summary>
         /// User message with optional message.
@@ -46,18 +48,13 @@ namespace DetailingStudio_v2.Models
         /// Orderer ID.
         /// </summary>
         [Required]
-        public int CustomerID { get; set; }
+        public string CustomerID { get; set; } = "-1";
 
         /// <summary>
         /// Car body type.
         /// </summary>
         [Required]
         public CarBodyType CarBodyType { get; set; }
-
-        /// <summary>
-        /// List of services in this order.
-        /// </summary>
-        public List<Service>? Orders { get; set; }
 
         /// <summary>
         /// Approximte order execution start time.
@@ -70,5 +67,16 @@ namespace DetailingStudio_v2.Models
         /// </summary>
         [Required]
         public DateTime OrderEndTime { get; set; }
+        
+        /// <summary>
+        /// List of Service Ids which user ordered.
+        /// </summary>
+        [NotMapped]
+        public int[] ServiceIds { get; set; }
+
+        /// <summary>
+        /// Service where Order will be executed.
+        /// </summary>
+        public int AffiliateId { get; set; }
     }
 }

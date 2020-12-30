@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DetailingStudio_v2.Models
@@ -34,6 +35,6 @@ namespace DetailingStudio_v2.Models
         /// Approximate time that takes it to execute Service.
         /// </summary>
         [Required]
-        public DateTime OrderExecutionTime { get; set; }
+        public float OrderExecutionTime { get; set; }  
     }
 }

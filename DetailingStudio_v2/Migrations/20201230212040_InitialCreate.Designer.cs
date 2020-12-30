@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DetailingStudio_v2.Data.Migrations
+namespace DetailingStudio_v2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201226115522_AddedValidation")]
-    partial class AddedValidation
+    [Migration("20201230212040_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,15 +65,18 @@ namespace DetailingStudio_v2.Data.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<short>("CarBodyType")
-                        .HasColumnType("smallint");
-
-                    b.Property<int>("CustomerID")
+                    b.Property<int>("AffiliateId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("OrderDate")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
+                    b.Property<string>("CarBodyType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("OrderDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("OrderDetails")
@@ -83,14 +86,16 @@ namespace DetailingStudio_v2.Data.Migrations
                     b.Property<DateTime>("OrderEndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<short>("OrderPaymentStatus")
-                        .HasColumnType("smallint");
+                    b.Property<string>("OrderPaymentStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("OrderStartTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<short>("OrderStatus")
-                        .HasColumnType("smallint");
+                    b.Property<string>("OrderStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("TotalPrice")
                         .HasColumnType("real");
@@ -112,11 +117,8 @@ namespace DetailingStudio_v2.Data.Migrations
                         .HasMaxLength(3000)
                         .HasColumnType("nvarchar(3000)");
 
-                    b.Property<DateTime>("OrderExecutionTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
+                    b.Property<float>("OrderExecutionTime")
+                        .HasColumnType("real");
 
                     b.Property<float>("Price")
                         .HasColumnType("real");
@@ -127,8 +129,6 @@ namespace DetailingStudio_v2.Data.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("Services");
                 });
@@ -333,13 +333,6 @@ namespace DetailingStudio_v2.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("DetailingStudio_v2.Models.Service", b =>
-                {
-                    b.HasOne("DetailingStudio_v2.Models.Order", null)
-                        .WithMany("Orders")
-                        .HasForeignKey("OrderId");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -389,11 +382,6 @@ namespace DetailingStudio_v2.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("DetailingStudio_v2.Models.Order", b =>
-                {
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }
