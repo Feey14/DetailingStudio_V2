@@ -14,9 +14,9 @@ namespace DetailingStudio_v2.Controllers
     public class RoleController : Controller
     {
         private readonly RoleManager<IdentityRole> RoleManager;
-        private readonly UserManager<IdentityUser> UserManager;
+        private readonly UserManager<ApplicationUser> UserManager;
 
-        public RoleController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        public RoleController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             this.RoleManager = roleManager;
             this.UserManager = userManager;
