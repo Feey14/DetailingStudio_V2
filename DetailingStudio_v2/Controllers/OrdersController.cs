@@ -71,16 +71,19 @@ namespace DetailingStudio_v2.Controllers
                 {
                     order.CustomerID = _userManager.GetUserId(User);
                 }
-                
+
+                order.OrderEndTime = order.OrderStartTime;
+
                 foreach(var serviceId in order.ServiceIds)
                 {
                     var service = await _context.Services
-                .FirstOrDefaultAsync(m => m.Id == serviceId);
-                    if (order == null)
+                    .FirstOrDefaultAsync(m => m.Id == serviceId);
+                    if (service == null)
                     {
                         return NotFound();
                     }
-                    // order.OrderEndTime.AddHours(service.OrderExecutionTime);
+                    order.OrderEndTime = order.OrderEndTime.AddHours(service.OrderExecutionTime);
+                    order.Services.Add(service);
                 }
 
                 _context.Add(order);

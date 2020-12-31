@@ -35,6 +35,8 @@ namespace DetailingStudio_v2.Models
         /// Approximate time that takes it to execute Service.
         /// </summary>
         [Required]
-        public float OrderExecutionTime { get; set; }  
+        public float OrderExecutionTime { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
     }
 }

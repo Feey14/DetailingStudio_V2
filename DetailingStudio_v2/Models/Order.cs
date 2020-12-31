@@ -60,12 +60,11 @@ namespace DetailingStudio_v2.Models
         /// Approximte order execution start time.
         /// </summary>
         [Required]
-        public DateTime OrderStartTime { get; set; }
+        public DateTime OrderStartTime { get; set; } = DateTime.Now;
 
         /// <summary>
         /// Approximte order execution end time.
         /// </summary>
-        [Required]
         public DateTime OrderEndTime { get; set; }
         
         /// <summary>
@@ -78,5 +77,7 @@ namespace DetailingStudio_v2.Models
         /// Service where Order will be executed.
         /// </summary>
         public int AffiliateId { get; set; }
+
+        public ICollection<Service> Services { get; set; } = new List<Service>();
     }
 }
