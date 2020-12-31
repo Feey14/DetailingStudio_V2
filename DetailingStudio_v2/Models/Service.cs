@@ -37,6 +37,9 @@ namespace DetailingStudio_v2.Models
         [Required]
         public float OrderExecutionTime { get; set; }
 
+        /// <summary>
+        /// List orders in which this service is in. Required for many to many relationship.
+        /// </summary>
         public ICollection<Order> Orders { get; set; }
     }
 }

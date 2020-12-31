@@ -49,6 +49,9 @@ namespace DetailingStudio_v2.Models
         /// </summary>
         public string ApplicationUserId { get; set; } = "-1";
 
+        /// <summary>
+        /// User that made this order.
+        /// </summary>
         public ApplicationUser ApplicationUser { get; set; }
 
         /// <summary>
@@ -79,6 +82,9 @@ namespace DetailingStudio_v2.Models
         /// </summary>
         public int AffiliateId { get; set; }
 
+        /// <summary>
+        /// List of services ordered.
+        /// </summary>
         public ICollection<Service> Services { get; set; } = new List<Service>();
     }
 }

@@ -8,6 +8,9 @@ namespace DetailingStudio_v2.Models
 {
     public class Role
     {
+        /// <summary>
+        /// Rolename required to create new role.
+        /// </summary>
         [Required]
         public string RoleName { get; set; }
     }
