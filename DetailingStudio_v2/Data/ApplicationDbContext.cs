@@ -16,8 +16,6 @@ namespace DetailingStudio_v2.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<Service> Services { get; set; }
 
-        public DbSet<OrderService> OrderServices { get; set; }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
