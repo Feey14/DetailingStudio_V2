@@ -69,7 +69,8 @@ namespace DetailingStudio_v2.Controllers
             {
                 if (User.Identity.IsAuthenticated)
                 {
-                    order.CustomerID = _userManager.GetUserId(User);
+                    order.ApplicationUserId = _userManager.GetUserId(User);
+                    order.ApplicationUser = await _userManager.GetUserAsync(User);
                 }
 
                 order.OrderEndTime = order.OrderStartTime;
@@ -84,6 +85,7 @@ namespace DetailingStudio_v2.Controllers
                     }
                     order.OrderEndTime = order.OrderEndTime.AddHours(service.OrderExecutionTime);
                     order.Services.Add(service);
+                    order.TotalPrice += service.Price;
                 }
 
                 _context.Add(order);

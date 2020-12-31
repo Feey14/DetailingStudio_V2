@@ -47,8 +47,9 @@ namespace DetailingStudio_v2.Models
         /// <summary>
         /// Orderer ID.
         /// </summary>
-        [Required]
-        public string CustomerID { get; set; } = "-1";
+        public string ApplicationUserId { get; set; } = "-1";
+
+        public ApplicationUser ApplicationUser { get; set; }
 
         /// <summary>
         /// Car body type.
