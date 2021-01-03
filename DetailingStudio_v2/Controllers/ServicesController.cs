@@ -32,8 +32,7 @@ namespace DetailingStudio_v2.Controllers
             {
                 return NotFound();
             }
-
-            var service = await _context.Services
+            var service = await _context.Services.Include(s => s.Orders)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (service == null)
             {

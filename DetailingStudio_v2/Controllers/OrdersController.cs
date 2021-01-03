@@ -38,7 +38,12 @@ namespace DetailingStudio_v2.Controllers
             }
 
             var order = await _context.Orders
+                .Include(o => o.Services)
+                .Include(o => o.ApplicationUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            // order.ApplicationUser = await _context.Users.FirstOrDefaultAsync(m => m.Id == order.ApplicationUserId);
+
             if (order == null)
             {
                 return NotFound();
@@ -53,7 +58,7 @@ namespace DetailingStudio_v2.Controllers
             ViewBag.services = await _context.Services.ToListAsync();
             ViewBag.affiliates = await _context.Affiliates.ToListAsync();
 
-            return View();
+            return View(new Order());
         }
 
         // POST: Orders/Create
@@ -178,6 +183,24 @@ namespace DetailingStudio_v2.Controllers
         private bool OrderExists(int id)
         {
             return _context.Orders.Any(e => e.Id == id);
+        }
+
+        public async Task<string> GetData(int[] ids)
+        {
+            if (ids.Any()){
+                decimal price = 0.00M;
+
+                foreach (var id in ids) 
+                {
+                    var service = await _context.Services.FirstOrDefaultAsync(m => m.Id == id);
+                    price += (decimal)service.Price;
+                }
+
+                var teste = String.Format("{0:0.00}", price);
+
+                return String.Format("{0:0.00}", price);
+            }
+            return string.Empty;
         }
     }
 }

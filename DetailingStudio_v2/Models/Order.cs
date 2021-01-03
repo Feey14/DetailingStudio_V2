@@ -30,7 +30,7 @@ namespace DetailingStudio_v2.Models
         /// </summary>
         [Required]
         [RegularExpression(@"^\d+.?\d{0,2}$")]
-        public float TotalPrice { get; set; } 
+        public float TotalPrice { get; set; } = 0.00f;
 
         /// <summary>
         /// User message with optional message.
@@ -85,6 +85,7 @@ namespace DetailingStudio_v2.Models
         /// <summary>
         /// List of services ordered.
         /// </summary>
-        public ICollection<Service> Services { get; set; } = new List<Service>();
+        [InverseProperty("Orders")]
+        public List<Service> Services { get; set; } = new List<Service>();
     }
 }

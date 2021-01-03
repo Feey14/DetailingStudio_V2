@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DetailingStudio_v2.Models
 {
@@ -40,6 +41,7 @@ namespace DetailingStudio_v2.Models
         /// <summary>
         /// List orders in which this service is in. Required for many to many relationship.
         /// </summary>
-        public ICollection<Order> Orders { get; set; }
+        [InverseProperty("Services")]
+        public List<Order> Orders { get; set; }
     }
 }
