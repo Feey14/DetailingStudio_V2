@@ -1,4 +1,5 @@
-﻿@{
+﻿@model DetailingStudio_v2.Models.Affiliate; 
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -9,8 +10,8 @@
                 <h4 class="text-white">Modern equipment</h4>
                 <h2 class="text-white">Premium Detailing</h2>
                 <div class="w-50 m-auto text-white pb-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
-                <button class="button-red-border mr-3 text-danger btn d-inline-block">Read More ></button>
-                <button class="button-red-border ml-3 text-danger btn d-inline-block">Order Now ></button>
+                <a href="home#About" class="button-red-border mr-3 btn d-inline-block ">Read More ></a>
+                <a class="button-red-border ml-3 btn d-inline-block" asp-area="" asp-controller="Orders" asp-action="Create">Order Now ></a>
             </div>
         </div>
     </div>
@@ -34,7 +35,7 @@
 
             <div class="mySlides fade">
                 <div class="numbertext">3 / 3</div>
-                <img src="https://1.bp.blogspot.com/-gr-snMWyyrw/TjKsGfZC0HI/AAAAAAAAEWc/x6RX-YqoVmU/s1600/Hot+Cars+Wallpapers.jpg" style="width:100%">
+                <img src="https://www.gieldaklasykow.pl/wp-content/uploads/2020/06/bmw-530d-e39-02.jpg" style="width:100%">
                 <div class="text">Caption Three</div>
             </div>
 
@@ -59,18 +60,18 @@
         </div>
     </div>
 </div>
-<div class="m-auto container row pb-75">
+<div class="m-auto container row pb-75" id="About">
     <div class="col text-center">
-        <img class="border-radius-50" src="https://www.tmacs-autodetailing.com/wp-content/uploads/2020/06/dodge-600x600.png" />
-        <h1 class="m-auto">Gallery</h1>
+        <img class="border-radius-50 zoom-in" src="https://www.tmacs-autodetailing.com/wp-content/uploads/2020/06/dodge-600x600.png" />
+        <h1 class="pt-3">Gallery</h1>
     </div>
     <div class="col text-center">
-        <img class="border-radius-50" src="https://www.tmacs-autodetailing.com/wp-content/uploads/2020/06/rr-600x600.png" />
-        <h1>Packages</h1>
+        <img class="border-radius-50 zoom-in" src="https://www.tmacs-autodetailing.com/wp-content/uploads/2020/06/rr-600x600.png" />
+        <h1 class="pt-3">Packages</h1>
     </div>
     <div class="col text-center">
-        <img class="border-radius-50" src="https://www.tmacs-autodetailing.com/wp-content/uploads/2020/06/polish-600x600.png" />
-        <h1>Products</h1>
+        <img class="border-radius-50 zoom-in" src="https://www.tmacs-autodetailing.com/wp-content/uploads/2020/06/polish-600x600.png" />
+        <h1 class="pt-3">Products</h1>
     </div>
 </div>
 <div class="container pb-50">
@@ -80,6 +81,12 @@
     <p>
         Detailing is an art-form, a passion, a creative outlet so to speak. It’s not for everyone as it requires a lot of time and practice to really do it well. It’s not just throwing some soap in a bucket and wiping the car down real quick. It’s much more than that. It’s making sure that the car is washed and dried properly to avoid damage to the car’s surface, wiping all panels in one direction to minimize those horrible ‘swirls’ that are so common on most people’s cars. It’s making sure that every nook and cranny has been cleaned to keep the car looking pristine which will not only add life to the car but also value to the car if it is to be sold or traded in. A clean car makes not only the ‘detailer’ feel good, but also the owner. Be the envy of everyone on your block and get your car looking MACnificent today!
     </p>
+</div>
+<div class="container row text-center mb-5 mx-auto" style="height: 70px; border-bottom: solid 5px darkred; border-top: solid 5px darkred">
+    <p class="col my-auto">Adress 1</p>
+    <p class="col my-auto">Adress 2</p>
+    <p class="col my-auto">Adress 3</p>
+    <p class="col my-auto">Adress 4</p>
 </div>
 <div class="container h-400 mb-100">
     <div class="row h-100">
@@ -93,7 +100,7 @@
             <p>
                 We Look Forward To Meeting All Your Cleaning & Detail Needs!!!
             </p>
-            <button class="button-red-border text-danger ">Schedule An Appointment ></button>
+            <a class="button-red-border">Schedule An Appointment ></a>
         </div>
     </div>
 </div>

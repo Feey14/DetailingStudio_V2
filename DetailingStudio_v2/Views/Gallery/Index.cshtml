@@ -1,8 +1,62 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<DetailingStudio_v2.Models.InstagramSampleModels.InstagramPicture>;
+
 @{
+    ViewData["Title"] = "Gallery";
+    int rowcount = 3;
 }
+
 <div class="container">
-    1234
+    <h1>Gallery</h1>
+    <h4>Order</h4>
+    @for (int i = 0; i < Model.Count();)
+    {
+
+        <div class="row">
+            @for (int j = 0; j < rowcount; j++)
+            {
+                if (i + j > Model.Count())
+                {
+                    break;
+                }
+                else
+                {
+                    <div class="column">
+                        <img id="@i" src="@Model[i].media_url" onclick="reply_click(this.id)" style="width:100%">
+                    </div>
+                    i++;
+                }
+
+            }
+        </div>
+
+    }
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption"></div>
+    </div>
 </div>
+
+<script>
+function reply_click(clicked_id) {
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById(clicked_id);
+    var modalImg = document.getElementById("modalImage");
+
+    // Assign values to modal
+    modal.style.display = "block";
+    modalImg.src = img.src;
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+    modal.style.display = "none";
+    }
+}
+</script>

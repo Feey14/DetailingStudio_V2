@@ -1,5 +1,6 @@
 ﻿using DetailingStudio_v2.Models.InstagramSampleModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,16 @@ namespace DetailingStudio_v2.Controllers
 {
     public class GalleryController : Controller
     {
+        private readonly IConfiguration _configuration;
+
+        public GalleryController(IConfiguration config)
+        {
+            _configuration = config;
+        }
         public async Task<IActionResult> Index()
         {
             HttpClient client = new HttpClient();
-            var token = "SecretToken";
+            var token = _configuration["InstagramToken"];
             InstagramUser user = null;
             HttpResponseMessage response = await client.GetAsync($"https://graph.instagram.com/me?fields=id,username&access_token={token}");
             if (response.IsSuccessStatusCode)
