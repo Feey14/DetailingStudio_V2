@@ -43,5 +43,12 @@ namespace DetailingStudio_v2.Models
         [Required]
         [MaxLength(20)]
         public string Email { get; set; }
+
+        /// <summary>
+        /// Link to Iframe to be shown on homepage.
+        /// Example of getting it: https://www.embedgooglemap.net/.
+        /// </summary>
+        [Required]
+        public string IframeMapUrl { get; set; }
     }
 }

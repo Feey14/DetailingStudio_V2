@@ -1,4 +1,4 @@
-﻿@model DetailingStudio_v2.Models.Affiliate; 
+﻿@model List<DetailingStudio_v2.Models.Affiliate>;
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -62,16 +62,22 @@
 </div>
 <div class="m-auto container row pb-75" id="About">
     <div class="col text-center">
-        <img class="border-radius-50 zoom-in" src="https://www.tmacs-autodetailing.com/wp-content/uploads/2020/06/dodge-600x600.png" />
-        <h1 class="pt-3">Gallery</h1>
+        <a style="text-decoration: none; color: white;" asp-area="" asp-controller="Gallery" asp-action="Index">
+            <img class="border-radius-50 zoom-in" src="https://www.tmacs-autodetailing.com/wp-content/uploads/2020/06/dodge-600x600.png" />
+            <h1 class="pt-3 image-link">Gallery</h1>
+        </a>
     </div>
     <div class="col text-center">
-        <img class="border-radius-50 zoom-in" src="https://www.tmacs-autodetailing.com/wp-content/uploads/2020/06/rr-600x600.png" />
-        <h1 class="pt-3">Packages</h1>
+        <a style="text-decoration: none; color: white;" asp-area="" asp-controller="Orders" asp-action="Index">
+            <img class="border-radius-50 zoom-in" src="https://www.tmacs-autodetailing.com/wp-content/uploads/2020/06/rr-600x600.png" />
+            <h1 class="pt-3 image-link">Packages</h1>
+        </a>
     </div>
     <div class="col text-center">
-        <img class="border-radius-50 zoom-in" src="https://www.tmacs-autodetailing.com/wp-content/uploads/2020/06/polish-600x600.png" />
-        <h1 class="pt-3">Products</h1>
+        <a style="text-decoration: none; color: white;" class="image-link" asp-area="" asp-controller="Orders" asp-action="Create">
+            <img class="border-radius-50 zoom-in" src="https://www.tmacs-autodetailing.com/wp-content/uploads/2020/06/polish-600x600.png" />
+            <h1 class="pt-3 image-link">Products</h1>
+        </a>
     </div>
 </div>
 <div class="container pb-50">
@@ -83,15 +89,15 @@
     </p>
 </div>
 <div class="container row text-center mb-5 mx-auto" style="height: 70px; border-bottom: solid 5px darkred; border-top: solid 5px darkred">
-    <p class="col my-auto">Adress 1</p>
-    <p class="col my-auto">Adress 2</p>
-    <p class="col my-auto">Adress 3</p>
-    <p class="col my-auto">Adress 4</p>
+    @foreach (var affiliate in Model)
+    {
+        <p id="@affiliate.Id" class="col my-auto affiliate-title" onclick="reply_click(this.id)" country="@affiliate.Country" city="@affiliate.City" phonenumber="@affiliate.PhoneNumber" streetadress="@affiliate.StreetAdress" email="@affiliate.Email">@affiliate.StreetAdress</p>
+    }
 </div>
 <div class="container h-400 mb-100">
     <div class="row h-100">
         <div class="col-7">
-            <iframe class="w-100 h-100" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3223.677061053699!2d-95.9017482853362!3d36.101359514424416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87b692a0b10166cf%3A0x6db2fb9d8d981211!2s4142%20S%2070th%20E%20Ave%2C%20Tulsa%2C%20OK%2074145!5e0!3m2!1sen!2sus!4v1587777776626!5m2!1sen!2sus"></iframe>
+            <iframe id ="iframefield" class="w-100 h-100" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3223.677061053699!2d-95.9017482853362!3d36.101359514424416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87b692a0b10166cf%3A0x6db2fb9d8d981211!2s4142%20S%2070th%20E%20Ave%2C%20Tulsa%2C%20OK%2074145!5e0!3m2!1sen!2sus!4v1587777776626!5m2!1sen!2sus"></iframe>
         </div>
         <div class="col-5">
             <p>
@@ -100,7 +106,16 @@
             <p>
                 We Look Forward To Meeting All Your Cleaning & Detail Needs!!!
             </p>
-            <a class="button-red-border">Schedule An Appointment ></a>
+            <h3>Contacts</h3>
+            @if (@Model.Count > 0)
+            {
+                <p id="countryfield">@Model[0].Country</p>
+                <p id="cityfield">@Model[0].City</p>
+                <p id="phonenumberfield">@Model[0].PhoneNumber</p>
+                <p id="streetadressfield">@Model[0].StreetAdress</p>
+                <p id="emailfield">@Model[0].Email</p>
+            }
+            <a class="button-red-border btn d-inline-block w-100">Schedule An Appointment ></a>
         </div>
     </div>
 </div>
@@ -133,5 +148,22 @@
         }
         slides[slideIndex - 1].style.display = "block";
         dots[slideIndex - 1].className += " active";
+    }
+
+    function reply_click(clicked_id) {
+        let element = document.getElementById(clicked_id);
+        let country = element.getAttribute("country");
+        let city = element.getAttribute("city");
+        let phonenumber = element.getAttribute("phonenumber");
+        let streetadress = element.getAttribute("streetadress");
+        let email = element.getAttribute("email");
+
+        $("#countryfield").text(country);
+        $("#cityfield").text(city);
+        $("#phonenumberfield").text(phonenumber);
+        $("#streetadressfield").text(streetadress);
+        $("#emailfield").text(email);
+        $("#iframefield").src = "https://maps.google.com/maps?q=kraslava&t=&z=13&ie=UTF8&iwloc=&output=embed";
+        document.getElementById("iframefield").src = "https://maps.google.com/maps?q=kraslava&t=&z=13&ie=UTF8&iwloc=&output=embed";
     }
 </script>
