@@ -91,13 +91,14 @@
 <div class="container row text-center mb-5 mx-auto" style="height: 70px; border-bottom: solid 5px darkred; border-top: solid 5px darkred">
     @foreach (var affiliate in Model)
     {
-        <p id="@affiliate.Id" class="col my-auto affiliate-title" onclick="reply_click(this.id)" country="@affiliate.Country" city="@affiliate.City" phonenumber="@affiliate.PhoneNumber" streetadress="@affiliate.StreetAdress" email="@affiliate.Email">@affiliate.StreetAdress</p>
+        <p id="@affiliate.Id" class="col my-auto affiliate-title" onclick="reply_click(this.id)" country="@affiliate.Country" city="@affiliate.City" phonenumber="@affiliate.PhoneNumber" streetadress="@affiliate.StreetAdress" email="@affiliate.Email" iframelink="@affiliate.IframeMapUrl">@affiliate.StreetAdress</p>
     }
 </div>
 <div class="container h-400 mb-100">
     <div class="row h-100">
         <div class="col-7">
-            <iframe id ="iframefield" class="w-100 h-100" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3223.677061053699!2d-95.9017482853362!3d36.101359514424416!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87b692a0b10166cf%3A0x6db2fb9d8d981211!2s4142%20S%2070th%20E%20Ave%2C%20Tulsa%2C%20OK%2074145!5e0!3m2!1sen!2sus!4v1587777776626!5m2!1sen!2sus"></iframe>
+            <iframe id ="iframefield" class="w-100 h-100" 
+                    src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=1%20Grafton%20Street,%20Dublin,%20Ireland+(Mybusiness)&t=&z=14&ie=UTF8&iwloc=B&output=embed" allowfullscreen"></iframe>
         </div>
         <div class="col-5">
             <p>
@@ -157,13 +158,15 @@
         let phonenumber = element.getAttribute("phonenumber");
         let streetadress = element.getAttribute("streetadress");
         let email = element.getAttribute("email");
+        let iframelink = element.getAttribute("iframelink");
+        let iframelink2 = "https://maps.google.com/maps?width=100%25&height=600&hl=en&q=kraslava+(Mybusiness)&t=&z=14&ie=UTF8&iwloc=B&output=embed";
 
         $("#countryfield").text(country);
         $("#cityfield").text(city);
         $("#phonenumberfield").text(phonenumber);
         $("#streetadressfield").text(streetadress);
         $("#emailfield").text(email);
-        $("#iframefield").src = "https://maps.google.com/maps?q=kraslava&t=&z=13&ie=UTF8&iwloc=&output=embed";
-        document.getElementById("iframefield").src = "https://maps.google.com/maps?q=kraslava&t=&z=13&ie=UTF8&iwloc=&output=embed";
+        
+        document.getElementById("iframefield").src = iframelink2;
     }
 </script>

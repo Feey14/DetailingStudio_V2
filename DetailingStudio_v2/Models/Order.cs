@@ -14,6 +14,14 @@ namespace DetailingStudio_v2.Models
         /// </summary>
         public int Id { get; set; }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string Email { get; set; }
+
+        public string PhoneNumber { get; set; }
+
         /// <summary>
         /// DateTime of when order got created.
         /// </summary>

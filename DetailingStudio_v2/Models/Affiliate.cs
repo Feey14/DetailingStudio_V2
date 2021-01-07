@@ -46,9 +46,10 @@ namespace DetailingStudio_v2.Models
 
         /// <summary>
         /// Link to Iframe to be shown on homepage.
-        /// Example of getting it: https://www.embedgooglemap.net/.
+        /// Example of getting it: https://www.embedgooglemap.net/ or https://www.maps.ie/create-google-map/.
         /// </summary>
         [Required]
+        [MaxLength(600)]
         public string IframeMapUrl { get; set; }
     }
 }
