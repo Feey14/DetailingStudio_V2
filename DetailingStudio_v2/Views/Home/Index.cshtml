@@ -98,7 +98,7 @@
     <div class="row h-100">
         <div class="col-7">
             <iframe id ="iframefield" class="w-100 h-100" 
-                    src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=1%20Grafton%20Street,%20Dublin,%20Ireland+(Mybusiness)&t=&z=14&ie=UTF8&iwloc=B&output=embed" allowfullscreen"></iframe>
+                    src="@Model[0].IframeMapUrl" allowfullscreen"></iframe>
         </div>
         <div class="col-5">
             <p>
@@ -159,14 +159,12 @@
         let streetadress = element.getAttribute("streetadress");
         let email = element.getAttribute("email");
         let iframelink = element.getAttribute("iframelink");
-        let iframelink2 = "https://maps.google.com/maps?width=100%25&height=600&hl=en&q=kraslava+(Mybusiness)&t=&z=14&ie=UTF8&iwloc=B&output=embed";
 
         $("#countryfield").text(country);
         $("#cityfield").text(city);
         $("#phonenumberfield").text(phonenumber);
         $("#streetadressfield").text(streetadress);
         $("#emailfield").text(email);
-        
-        document.getElementById("iframefield").src = iframelink2;
+        document.getElementById("iframefield").src = iframelink;
     }
 </script>

@@ -58,7 +58,19 @@ namespace DetailingStudio_v2.Controllers
             ViewBag.services = await _context.Services.ToListAsync();
             ViewBag.affiliates = await _context.Affiliates.ToListAsync();
 
-            return View(new Order());
+            Order order = new Order();
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                
+                order.Email = user.Email;
+                order.FirstName = user.Name;
+                order.LastName = user.Surname;
+                order.PhoneNumber = user.PhoneNumber;
+            }
+
+            return View(order);
         }
 
         // POST: Orders/Create
