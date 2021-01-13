@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using DetailingStudio_v2.Data;
 using DetailingStudio_v2.Models;
+using Microsoft.AspNetCore.Authorization;
+using DetailingStudio_v2.Enums;
 
 namespace DetailingStudio_v2.Controllers
 {
@@ -23,10 +23,25 @@ namespace DetailingStudio_v2.Controllers
             _userManager = userManager;
         }
 
-        // GET: Orders
+        /// <summary>
+        /// Shows orders.
+        /// If user is not authenticated nothing will be retuned,
+        /// If user is employee or administrator all orders will be shown,
+        /// if user is regular user only his orders will be shown.
+        /// </summary>
+        /// <returns>List of orders</returns>
+        [Authorize]
         public async Task<IActionResult> Index()
-        {
-            return View(await _context.Orders.ToListAsync());
+        {   
+            if (!User.IsInRole(nameof(UserRoleEnum.Administrator)) || !User.IsInRole(nameof(UserRoleEnum.Employee)))
+            {
+                return View(await _context.Orders.ToListAsync());
+            }
+            
+            else
+            {
+                return View(await _context.Orders.Where(x => x.ApplicationUserId == _userManager.GetUserId(User)).ToListAsync());
+            }
         }
 
         // GET: Orders/Details/5
@@ -78,7 +93,7 @@ namespace DetailingStudio_v2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,OrderDate,OrderPaymentStatus,TotalPrice,OrderDetails,OrderStatus,CustomerID,CarBodyType,OrderStartTime,OrderEndTime,ServiceIds,AffiliateId,CustomerID")] Order order)
+        public async Task<IActionResult> Create([Bind("FirstName,LastName,PhoneNumber,Email,Id,OrderDate,OrderPaymentStatus,TotalPrice,OrderDetails,OrderStatus,CustomerID,CarBodyType,OrderStartTime,OrderEndTime,ServiceIds,AffiliateId,CustomerID")] Order order)
         {
             ViewBag.affiliates = await _context.Affiliates.ToListAsync();
             ViewBag.services = await _context.Services.ToListAsync();
@@ -86,12 +101,15 @@ namespace DetailingStudio_v2.Controllers
             {
                 if (User.Identity.IsAuthenticated)
                 {
+                    // Getting logged in user.
                     order.ApplicationUserId = _userManager.GetUserId(User);
                     order.ApplicationUser = await _userManager.GetUserAsync(User);
                 }
 
+                // For error handling assigning order endtime same as order start tiem
                 order.OrderEndTime = order.OrderStartTime;
 
+                /// Fetching Order with service data
                 foreach(var serviceId in order.ServiceIds)
                 {
                     var service = await _context.Services

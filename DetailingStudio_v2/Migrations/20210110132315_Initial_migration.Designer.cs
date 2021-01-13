@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DetailingStudio_v2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210101143941_userRoleTestv4")]
-    partial class userRoleTestv4
+    [Migration("20210110132315_Initial_migration")]
+    partial class Initial_migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,6 +42,11 @@ namespace DetailingStudio_v2.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("IframeMapUrl")
+                        .IsRequired()
+                        .HasMaxLength(600)
+                        .HasColumnType("nvarchar(600)");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -127,27 +132,6 @@ namespace DetailingStudio_v2.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "55cd2e27-e6a8-4627-a7d5-816aa039af6a",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "fe3f8136-57a6-4b8a-a0f4-5a3081108cf3",
-                            Email = "tester@tester.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            Name = "TesterName",
-                            NormalizedEmail = "TESTER@TESTER.COM",
-                            NormalizedUserName = "TESTER",
-                            PasswordHash = "AQAAAAEAACcQAAAAELO+MqqOhR0T5EyrSFzAka6lZaUfa0RVu0IkCdoAGdv68x6ZF5BTZBj2nkTPbmUGyg==",
-                            PhoneNumber = "123456789",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "1ce4efb0-c4b6-4e18-8abd-7297c2b50c40",
-                            Surname = "TesterSurname",
-                            TwoFactorEnabled = false,
-                            UserName = "tester"
-                        });
                 });
 
             modelBuilder.Entity("DetailingStudio_v2.Models.Order", b =>
@@ -165,6 +149,15 @@ namespace DetailingStudio_v2.Migrations
 
                     b.Property<string>("CarBodyType")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("OrderDate")
@@ -186,6 +179,9 @@ namespace DetailingStudio_v2.Migrations
 
                     b.Property<string>("OrderStatus")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("TotalPrice")
@@ -251,15 +247,6 @@ namespace DetailingStudio_v2.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "774e1b22-0ad3-456a-b5c4-48aa886700ff",
-                            ConcurrencyStamp = "13b74a8b-8b4b-48b5-9844-2c8bad1bfa32",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -347,13 +334,6 @@ namespace DetailingStudio_v2.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "a141dc7f-3170-4c9f-b6e6-3a3856f1b746",
-                            RoleId = "774e1b22-0ad3-456a-b5c4-48aa886700ff"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

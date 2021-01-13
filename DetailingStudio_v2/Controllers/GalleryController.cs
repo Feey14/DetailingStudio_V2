@@ -19,6 +19,11 @@ namespace DetailingStudio_v2.Controllers
         {
             _configuration = config;
         }
+
+        /// <summary>
+        /// Gallery Controller Index page
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
             HttpClient client = new HttpClient();
@@ -30,6 +35,7 @@ namespace DetailingStudio_v2.Controllers
                 user = await response.Content.ReadAsAsync<InstagramUser>();
             }
 
+            // Getting userData ids.
             InstagramUserData userData = null;
             response = await client.GetAsync($"https://graph.instagram.com/me/media?fields=id,caption&access_token={token}");
             if (response.IsSuccessStatusCode)
@@ -37,6 +43,7 @@ namespace DetailingStudio_v2.Controllers
                 userData = await response.Content.ReadAsAsync<InstagramUserData>();
             }
 
+            // Getting user media id from userData getting only images.
             List<InstagramPicture> instagramPictures = new List<InstagramPicture>();
             foreach (var data in userData.data)
             {

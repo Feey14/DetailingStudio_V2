@@ -24,7 +24,7 @@ namespace DetailingStudio_v2.Controllers
 
         public async Task<IActionResult> Index()
         {
-
+            // Passing Affiliate data to home page
             return View(await _context.Affiliates.ToListAsync());
         }
 

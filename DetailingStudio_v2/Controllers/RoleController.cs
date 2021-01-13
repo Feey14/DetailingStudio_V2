@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace DetailingStudio_v2.Controllers
 {
-    // [Authorize(Roles = nameof(UserRoleEnum.Administrator))]
     public class RoleController : Controller
     {
         private readonly RoleManager<IdentityRole> RoleManager;
@@ -118,6 +117,11 @@ namespace DetailingStudio_v2.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Editing users role.
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> EditUsersRole(string roleId)
         {
@@ -125,6 +129,7 @@ namespace DetailingStudio_v2.Controllers
 
             var role = await RoleManager.FindByIdAsync(roleId);
 
+            // showing errormessage if role is not found.
             if(role == null)
             {
                 ViewBag.ErrorMessage = $"Role with Id = {roleId} can't be found";
@@ -133,6 +138,7 @@ namespace DetailingStudio_v2.Controllers
             
             var model = new List<UserRole>();
 
+            // fetching user data.
             foreach(var user in UserManager.Users)
             {
                 var userRole = new UserRole()
@@ -156,15 +162,22 @@ namespace DetailingStudio_v2.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Editing users role.
+        /// </summary>
+        /// <param name="model">Getting user role</param>
+        /// <param name="roleId">Role id</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> EditUsersRole(List<UserRole> model, string roleId)
         {
+            ViewBag.roleId = roleId;
             var role = await RoleManager.FindByIdAsync(roleId);
 
-            if(role == null)
+            if (role == null)
             {
                 ViewBag.ErrorMessage = $"Role with Id = {roleId} cannot be found";
-                return View("NotFound");
+                return View("Index");
             }
             for (int i = 0; i < model.Count; i++)
             {
@@ -190,11 +203,11 @@ namespace DetailingStudio_v2.Controllers
                     if (i < (model.Count - 1))
                         continue;
                     else
-                        return RedirectToAction("EditUserRole", new { Id = roleId });
+                        return RedirectToAction("Index");
                 }
             }
 
-            return RedirectToAction("EditUserRole", new { Id = roleId });
+            return RedirectToAction("Index");
         }
     }
 }

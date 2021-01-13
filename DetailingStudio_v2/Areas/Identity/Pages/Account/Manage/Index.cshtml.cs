@@ -36,17 +36,29 @@ namespace DetailingStudio_v2.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Phone]
+            [Display(Name = "First name")]
+            public string Name { get; set; }
+
+            [Phone]
+            [Display(Name = "Last name")]
+            public string Surname { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var firstName = user.Name;
+            var lastName = user.Name;
 
             Username = userName;
 
             Input = new InputModel
             {
+                Name = firstName,
+                Surname = lastName,
                 PhoneNumber = phoneNumber
             };
         }

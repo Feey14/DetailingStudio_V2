@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace DetailingStudio_v2.Models
 {
@@ -28,6 +29,7 @@ namespace DetailingStudio_v2.Models
         /// </summary>
         [Required]
         [MaxLength(20)]
+        [DisplayName("Phone Number")]
         public string PhoneNumber { get; set; }
 
         /// <summary>
