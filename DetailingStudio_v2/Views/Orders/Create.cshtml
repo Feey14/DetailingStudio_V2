@@ -87,8 +87,12 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="ServiceIds" class="control-label"></label>
-                    <select id="select" asp-for="ServiceIds" class="table-responsive" asp-items="@(new SelectList(ViewBag.services,"Id","Title"))" multiple="multiple">
+                    <select id="select"  class="table-responsive" asp-for="ServiceIds" multiple>
                         <option>Please select one or more</option>
+                        @foreach(var service in services)
+                        {
+                            <option class="text-dark" value="@service.Id">@service.Title</option>
+                        }
                     </select>
                     <span asp-validation-for="ServiceIds" class="text-danger"></span>
                 </div>
@@ -147,20 +151,16 @@
     $('#datetimepicker').datetimepicker({
         inline: true,
         theme: "dark",
-        format: 'DD/MM hh:ii',
-        minDate: '-1969/12/31',
+        value: new Date(),
+        minDate: 0,
         allowTimes: [
-            '08:00','09:00','10:00','11:00','12:00',
+            '08:00', '09:00', '10:00', '11:00', '12:00',
             '13:00', '14:00', '15:00', '16:00', '17:00'
-        ]
+        ],
     });
 
-    function formatDate(datestr) {
-        var date = new Date(datestr);
-        var day = date.getDate();
-        day = day > 9 ? day : "0" + day;
-        var month = date.getMonth() + 1; month = month > 9 ? month : "0" + month;
-        return month + "/" + day + "/" + date.getFullYear();
-    }
+@*    $(document).ready(function () {
+        $('#select').multiselect()
+    });*@
 
 </script>

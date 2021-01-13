@@ -1,4 +1,5 @@
 ﻿@model DetailingStudio_v2.Models.Affiliate
+@using DetailingStudio_v2.Enums;
 
 @{
     ViewData["Title"] = "Details";
@@ -49,7 +50,11 @@
         </dl>
     </div>
     <div>
-        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        @if (User.IsInRole(nameof(UserRoleEnum.Administrator)) || User.IsInRole(nameof(UserRoleEnum.Employee)))
+        {
+            <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> 
+        }
+
         <a asp-action="Index">Back to List</a>
     </div>
 </div>

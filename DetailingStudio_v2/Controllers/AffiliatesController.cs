@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DetailingStudio_v2.Data;
 using DetailingStudio_v2.Models;
+using Microsoft.AspNetCore.Authorization;
+using DetailingStudio_v2.Enums;
 
 namespace DetailingStudio_v2.Controllers
 {
@@ -44,6 +46,7 @@ namespace DetailingStudio_v2.Controllers
         }
 
         // GET: Affiliates/Create
+        [Authorize(Roles = nameof(UserRoleEnum.Administrator))]
         public IActionResult Create()
         {
             return View();
@@ -54,7 +57,8 @@ namespace DetailingStudio_v2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Country,City,PhoneNumber,StreetAdress,Email")] Affiliate affiliate)
+        [Authorize(Roles = nameof(UserRoleEnum.Administrator))]
+        public async Task<IActionResult> Create([Bind("Id,Country,City,PhoneNumber,StreetAdress,Email,IframeMapUrl")] Affiliate affiliate)
         {
             if (ModelState.IsValid)
             {
@@ -66,6 +70,7 @@ namespace DetailingStudio_v2.Controllers
         }
 
         // GET: Affiliates/Edit/5
+        [Authorize(Roles = nameof(UserRoleEnum.Administrator))]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,7 +91,8 @@ namespace DetailingStudio_v2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Country,City,PhoneNumber,StreetAdress,Email")] Affiliate affiliate)
+        [Authorize(Roles = nameof(UserRoleEnum.Administrator))]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Country,City,PhoneNumber,StreetAdress,Email,IframeMapUrl")] Affiliate affiliate)
         {
             if (id != affiliate.Id)
             {
@@ -117,6 +123,7 @@ namespace DetailingStudio_v2.Controllers
         }
 
         // GET: Affiliates/Delete/5
+        [Authorize(Roles = nameof(UserRoleEnum.Administrator))]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +144,7 @@ namespace DetailingStudio_v2.Controllers
         // POST: Affiliates/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = nameof(UserRoleEnum.Administrator))]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var affiliate = await _context.Affiliates.FindAsync(id);

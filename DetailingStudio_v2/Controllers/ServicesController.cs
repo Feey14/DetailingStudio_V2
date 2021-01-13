@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DetailingStudio_v2.Data;
 using DetailingStudio_v2.Models;
+using Microsoft.AspNetCore.Authorization;
+using DetailingStudio_v2.Enums;
 
 namespace DetailingStudio_v2.Controllers
 {
@@ -43,6 +45,7 @@ namespace DetailingStudio_v2.Controllers
         }
 
         // GET: Services/Create
+        [Authorize(Roles = nameof(UserRoleEnum.Administrator))]
         public IActionResult Create()
         {
             return View();
@@ -53,6 +56,7 @@ namespace DetailingStudio_v2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = nameof(UserRoleEnum.Administrator))]
         public async Task<IActionResult> Create([Bind("Id,Title,Description,Price,OrderExecutionTime")] Service service)
         {
             if (ModelState.IsValid)
@@ -65,6 +69,7 @@ namespace DetailingStudio_v2.Controllers
         }
 
         // GET: Services/Edit/5
+        [Authorize(Roles = nameof(UserRoleEnum.Administrator))]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -85,6 +90,7 @@ namespace DetailingStudio_v2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = nameof(UserRoleEnum.Administrator))]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Price,OrderExecutionTime")] Service service)
         {
             if (id != service.Id)
@@ -116,6 +122,7 @@ namespace DetailingStudio_v2.Controllers
         }
 
         // GET: Services/Delete/5
+        [Authorize(Roles = nameof(UserRoleEnum.Administrator))]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -136,6 +143,7 @@ namespace DetailingStudio_v2.Controllers
         // POST: Services/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = nameof(UserRoleEnum.Administrator))]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var service = await _context.Services.FindAsync(id);

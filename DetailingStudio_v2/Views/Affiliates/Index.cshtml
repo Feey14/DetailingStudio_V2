@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<DetailingStudio_v2.Models.Affiliate>
+@using DetailingStudio_v2.Enums;
+
 
 @{
     ViewData["Title"] = "Index";
@@ -50,9 +52,12 @@
                         @Html.DisplayFor(modelItem => item.Email)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    @if (User.IsInRole(nameof(UserRoleEnum.Administrator)) || User.IsInRole(nameof(UserRoleEnum.Employee)))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> 
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
                     </td>
                 </tr>
             }

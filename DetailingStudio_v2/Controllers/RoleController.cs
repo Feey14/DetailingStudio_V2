@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace DetailingStudio_v2.Controllers
 {
+    [Authorize(Roles = nameof(UserRoleEnum.Administrator))]
     public class RoleController : Controller
     {
         private readonly RoleManager<IdentityRole> RoleManager;

@@ -37,7 +37,7 @@ namespace DetailingStudio_v2.Controllers
 
             // Getting userData ids.
             InstagramUserData userData = null;
-            response = await client.GetAsync($"https://graph.instagram.com/me/media?fields=id,caption&access_token={token}");
+            response = await client.GetAsync($"https://graph.instagram.com/{user.id}/media?fields=id,caption&access_token={token}");
             if (response.IsSuccessStatusCode)
             {
                 userData = await response.Content.ReadAsAsync<InstagramUserData>();

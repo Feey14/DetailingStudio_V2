@@ -32,19 +32,22 @@ namespace DetailingStudio_v2.Controllers
         /// <returns>List of orders</returns>
         [Authorize]
         public async Task<IActionResult> Index()
-        {   
-            if (!User.IsInRole(nameof(UserRoleEnum.Administrator)) || !User.IsInRole(nameof(UserRoleEnum.Employee)))
+        {
+            if (User.IsInRole(nameof(UserRoleEnum.Administrator)) || User.IsInRole(nameof(UserRoleEnum.Employee)))
             {
                 return View(await _context.Orders.ToListAsync());
             }
-            
+
             else
             {
-                return View(await _context.Orders.Where(x => x.ApplicationUserId == _userManager.GetUserId(User)).ToListAsync());
+                var userId = _userManager.GetUserId(User);
+                var user = _context.Users.Where(u => u.Id == userId).Include(u => u.Orders).FirstOrDefault(u => u.Id == userId);
+                return View(user.Orders);
             }
         }
 
         // GET: Orders/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -52,12 +55,29 @@ namespace DetailingStudio_v2.Controllers
                 return NotFound();
             }
 
-            var order = await _context.Orders
-                .Include(o => o.Services)
-                .Include(o => o.ApplicationUser)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var order = new Order();
 
-            // order.ApplicationUser = await _context.Users.FirstOrDefaultAsync(m => m.Id == order.ApplicationUserId);
+            if (User.IsInRole(nameof(UserRoleEnum.Administrator)) || User.IsInRole(nameof(UserRoleEnum.Employee)))
+            {
+                order = await _context.Orders
+                    .Include(o => o.Services)
+                    .Include(o => o.ApplicationUser)
+                    .FirstOrDefaultAsync(m => m.Id == id);
+            }
+            else
+            {
+                var userId = _userManager.GetUserId(User);
+                var user = _context.Users.Where(u => u.Id == userId).Include(u => u.Orders).FirstOrDefault(u => u.Id == userId);
+                if(!user.Orders.Exists(o => o.Id == id))
+                {
+                    return Redirect("/Identity/Account/AccessDenied"); 
+                }
+            }
+            
+            order = await _context.Orders
+                    .Include(o => o.Services)
+                    .Include(o => o.ApplicationUser)
+                    .FirstOrDefaultAsync(m => m.Id == id);
 
             if (order == null)
             {
@@ -78,7 +98,7 @@ namespace DetailingStudio_v2.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var user = await _userManager.GetUserAsync(User);
-                
+
                 order.Email = user.Email;
                 order.FirstName = user.Name;
                 order.LastName = user.Surname;
@@ -110,7 +130,7 @@ namespace DetailingStudio_v2.Controllers
                 order.OrderEndTime = order.OrderStartTime;
 
                 /// Fetching Order with service data
-                foreach(var serviceId in order.ServiceIds)
+                foreach (var serviceId in order.ServiceIds)
                 {
                     var service = await _context.Services
                     .FirstOrDefaultAsync(m => m.Id == serviceId);
@@ -131,6 +151,7 @@ namespace DetailingStudio_v2.Controllers
         }
 
         // GET: Orders/Edit/5
+        [Authorize(Roles = nameof(UserRoleEnum.Administrator) + ", " + nameof(UserRoleEnum.Employee))]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -151,6 +172,7 @@ namespace DetailingStudio_v2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = nameof(UserRoleEnum.Administrator) + ", " + nameof(UserRoleEnum.Employee))]
         public async Task<IActionResult> Edit(int id, [Bind("Id,OrderDate,OrderPaymentStatus,TotalPrice,OrderDetails,OrderStatus,CustomerID,CarBodyType,OrderStartTime,OrderEndTime")] Order order)
         {
             if (id != order.Id)
@@ -182,6 +204,7 @@ namespace DetailingStudio_v2.Controllers
         }
 
         // GET: Orders/Delete/5
+        [Authorize(Roles = nameof(UserRoleEnum.Administrator) + ", " + nameof(UserRoleEnum.Employee))]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -200,6 +223,7 @@ namespace DetailingStudio_v2.Controllers
         }
 
         // POST: Orders/Delete/5
+        [Authorize(Roles = nameof(UserRoleEnum.Administrator) + ", " + nameof(UserRoleEnum.Employee))]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
