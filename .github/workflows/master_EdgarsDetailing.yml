@@ -11,7 +11,7 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@master
@@ -32,5 +32,5 @@ jobs:
       with:
         app-name: 'EdgarsDetailing'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_eca44634636e4437af30156f3e7e5174 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_a739584993a64231b8a9c7b4003342e4 }}
         package: ${{env.DOTNET_ROOT}}/myapp 
