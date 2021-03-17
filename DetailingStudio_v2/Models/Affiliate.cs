@@ -43,7 +43,7 @@ namespace DetailingStudio_v2.Models
         /// Affiliate e-mail.
         /// </summary>
         [Required]
-        [MaxLength(20)]
+        [MaxLength(200)]
         public string Email { get; set; }
 
         /// <summary>

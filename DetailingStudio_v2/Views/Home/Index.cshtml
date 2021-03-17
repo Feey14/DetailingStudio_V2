@@ -88,7 +88,7 @@
 <div class="container row text-center mb-5 mx-auto" style="height: 70px; border-bottom: solid 5px darkred; border-top: solid 5px darkred">
     @foreach (var affiliate in Model)
     {
-        <p id="@affiliate.Id" class="col my-auto affiliate-title" onclick="reply_click(this.id)" country="@affiliate.Country" city="@affiliate.City" phonenumber="@affiliate.PhoneNumber" streetadress="@affiliate.StreetAdress" email="@affiliate.Email" iframelink="@affiliate.IframeMapUrl">@affiliate.StreetAdress</p>
+        <p id="@affiliate.Id" class="col my-auto affiliate-title" onclick="reply_click(this.id)" country="@affiliate.Country" city="@affiliate.City" phonenumber="@affiliate.PhoneNumber" streetadress="@affiliate.StreetAdress" email="@affiliate.Email" iframelink="@affiliate.IframeMapUrl">@affiliate.City, @affiliate.StreetAdress</p>
     }
 </div>
 <div class="container h-400 mb-100">
@@ -109,8 +109,8 @@
             {
                 <p id="countryfield">@Model[0].Country</p>
                 <p id="cityfield">@Model[0].City</p>
-                <p id="phonenumberfield">@Model[0].PhoneNumber</p>
                 <p id="streetadressfield">@Model[0].StreetAdress</p>
+                <p id="phonenumberfield">@Model[0].PhoneNumber</p>
                 <p id="emailfield">@Model[0].Email</p>
             }
             <a asp-controller="Orders" asp-action="Create" class="button-red-border btn d-inline-block w-100">Schedule An Appointment ></a>

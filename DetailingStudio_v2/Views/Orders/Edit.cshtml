@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    List<Service> services = ViewBag.services;
 }
 <div class="container">
     <h1>Edit</h1>
@@ -56,7 +57,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="ApplicationUserId" class="control-label"></label>
-                    <input asp-for="ApplicationUserId" disabled class="form-control" />
+                    <input asp-for="ApplicationUserId" class="form-control" />
                     <span asp-validation-for="ApplicationUserId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -76,6 +77,17 @@
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="ServiceIds" class="control-label"></label>
+                    <select id="select" class="form-group w-100" asp-for="ServiceIds" multiple>
+                        <option disabled>Please select one or more</option>
+                        @foreach (var service in services)
+                        {
+                            <option class="" value="@service.Id">@service.Title</option>
+                        }
+                    </select>
+                    <span asp-validation-for="ServiceIds" class="text-danger"></span>
                 </div>
             </form>
         </div>

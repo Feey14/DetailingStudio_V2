@@ -118,6 +118,7 @@ namespace DetailingStudio_v2.Models
         /// List of Service Ids which user ordered.
         /// </summary>
         [NotMapped]
+        [Required]
         [DisplayName("Services")]
         public int[] ServiceIds { get; set; }
 
@@ -125,6 +126,7 @@ namespace DetailingStudio_v2.Models
         /// Service where Order will be executed.
         /// </summary>
         [DisplayName("Affiliate")]
+        [Required]
         public int AffiliateId { get; set; }
 
         /// <summary>

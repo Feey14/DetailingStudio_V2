@@ -154,6 +154,9 @@ namespace DetailingStudio_v2.Controllers
         [Authorize(Roles = nameof(UserRoleEnum.Administrator) + ", " + nameof(UserRoleEnum.Employee))]
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.affiliates = await _context.Affiliates.ToListAsync();
+            ViewBag.services = await _context.Services.ToListAsync();
+
             if (id == null)
             {
                 return NotFound();
@@ -173,8 +176,11 @@ namespace DetailingStudio_v2.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = nameof(UserRoleEnum.Administrator) + ", " + nameof(UserRoleEnum.Employee))]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,OrderDate,OrderPaymentStatus,TotalPrice,OrderDetails,OrderStatus,CustomerID,CarBodyType,OrderStartTime,OrderEndTime")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("FirstName,LastName,PhoneNumber,Email,Id,OrderDate,OrderPaymentStatus,TotalPrice,OrderDetails,OrderStatus,CustomerID,CarBodyType,OrderStartTime,OrderEndTime,ServiceIds,AffiliateId,CustomerID")] Order order)
         {
+            ViewBag.affiliates = await _context.Affiliates.ToListAsync();
+            ViewBag.services = await _context.Services.ToListAsync();
+
             if (id != order.Id)
             {
                 return NotFound();

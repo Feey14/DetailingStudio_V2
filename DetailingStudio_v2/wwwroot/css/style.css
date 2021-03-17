@@ -349,6 +349,29 @@ h1 .image-link:active {
   font-weight: bold;
 }
 .affiliate-title:hover {
-  color: darkred;
-  font-weight: bolder;
+    color: darkred;
+    font-weight: bolder;
+    -ms-transform: scale(1.1);
+    /* IE 9 */
+    -webkit-transform: scale(1.1);
+    /* Safari 3-8 */
+    transform: scale(1.1);
+}
+
+.select2-results__option {
+    width:100%;
+    float:left;
+    color: black;
+}
+
+.select2-search__field {
+    width: 100%;
+}
+
+.select2 {
+    width: 100%;
+}
+
+.select2-search__field {
+    width: 100%;
 }

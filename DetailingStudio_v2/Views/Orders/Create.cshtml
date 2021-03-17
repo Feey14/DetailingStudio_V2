@@ -76,7 +76,7 @@
                 <div class="form-group">
                     <label asp-for="CarBodyType" class="control-label"></label>
                     <select asp-for="CarBodyType" asp-items="Html.GetEnumSelectList<CarBodyType>()" class="form-control">
-                        <option disabled selected>--- SELECT ---</option>
+                        <option selected disabled>--- SELECT ---</option>
                     </select>
                     <span asp-validation-for="CarBodyType" class="text-danger"></span>
                 </div>
@@ -84,14 +84,15 @@
                     <label asp-for="OrderStartTime" class="control-label"></label>
                     <input id="datetimepicker" asp-for="OrderStartTime" type="text" class="form-control" />
                     <span asp-validation-for="OrderStartTime" class="text-danger"></span>
+                    <button id="button1"></button>
                 </div>
                 <div class="form-group">
                     <label asp-for="ServiceIds" class="control-label"></label>
-                    <select id="select"  class="table-responsive" asp-for="ServiceIds" multiple>
-                        <option>Please select one or more</option>
+                    <select id="select"  class="form-group w-100" asp-for="ServiceIds" multiple>
+                        <option disabled>Please select one or more</option>
                         @foreach(var service in services)
                         {
-                            <option class="text-dark" value="@service.Id">@service.Title</option>
+                            <option class="" value="@service.Id">@service.Title</option>
                         }
                     </select>
                     <span asp-validation-for="ServiceIds" class="text-danger"></span>
@@ -99,7 +100,7 @@
                 <div class="form-group">
                     <label asp-for="AffiliateId" class="control-label"></label>
                     <select asp-for="AffiliateId" asp-items="@(new SelectList(ViewBag.affiliates,"Id","StreetAdress"))" class="form-control">
-                        <option>Please select one</option>
+                        <option selected disabled>Please select one</option>
                     </select>
                     <span asp-validation-for="AffiliateId" class="text-danger"></span>
                 </div>
@@ -145,7 +146,7 @@
                     }
             });
     });
-    var disabletime = ["01/15/2021:11", "01/15/2021:0", "01/15/2021:17"]; //your dates from database with only hr
+
     $.datetimepicker.setDateFormatter('moment');
 
     $('#datetimepicker').datetimepicker({
@@ -159,8 +160,34 @@
         ],
     });
 
-@*    $(document).ready(function () {
-        $('#select').multiselect()
+    $('#datetimepicker').change(function () {
+        var selecteddate = $('#datetimepicker').datetimepicker('getValue');
+        selecteddate = selecteddate.getDate(selecteddate);
+        console.log(selecteddate);
+        if (selecteddate == '21') {
+            $('#datetimepicker').datetimepicker({
+                minDate: 0,
+                allowTimes: ['08:00', '09:00', '10:00'],
+            })
+        }
+        else if (selecteddate == 22) {
+            $('#datetimepicker').datetimepicker({
+                minDate: 0,
+                allowTimes: ['08:00', '09:00', '13:00', '14:00', '15:00', '16:00', '17:00'],
+            });
+        }
+        else {
+            $('#datetimepicker').datetimepicker({
+                minDate: 0,
+                allowTimes: [
+                    '08:00', '09:00', '10:00', '11:00', '12:00',
+                    '13:00', '14:00', '15:00', '16:00', '17:00'],
+            });
+        }
+    });
+
+    @*$(document).ready(function () {
+        $('#select').multisele();
     });*@
 
 </script>
