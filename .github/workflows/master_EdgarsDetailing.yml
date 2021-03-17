@@ -32,5 +32,5 @@ jobs:
       with:
         app-name: 'EdgarsDetailing'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_9d0fa73453b14b53b894c1a25eb48d0d }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_3cff11dbb92b4e02a2c429b47ffefc2e }}
         package: ${{env.DOTNET_ROOT}}/myapp 
