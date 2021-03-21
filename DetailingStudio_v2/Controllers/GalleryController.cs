@@ -27,7 +27,7 @@ namespace DetailingStudio_v2.Controllers
         public async Task<IActionResult> Index()
         {
             HttpClient client = new HttpClient();
-            var token = _configuration["InstagramToken"];
+            var token = "IGQVJWR2JHZAnFDNmJVblY4TUhnbUttWHVrYURmRTZARWDVSMG56R1g2YzBkUkNEdUJkMUVUUC1kWGVJbmRySVpERld1THZAKcHh4S29fMWVNeGxocjZAFTVhhOHZArR1hvYm1henYwckF0TVBmOTdOOTNyUQZDZD";
             InstagramUser user = null;
             HttpResponseMessage response = await client.GetAsync($"https://graph.instagram.com/me?fields=id,username&access_token={token}");
             if (response.IsSuccessStatusCode)
