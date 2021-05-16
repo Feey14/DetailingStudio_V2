@@ -60,19 +60,19 @@
 <div class="m-auto container row pb-75" id="About">
     <div class="col text-center">
         <a style="text-decoration: none; color: white;" asp-area="" asp-controller="Gallery" asp-action="Index" rel="nofollow">
-            <img class="border-radius-50 zoom-in" src="https://www.tmacs-autodetailing.com/wp-content/uploads/2020/06/dodge-600x600.png"  alt="Our detailing gallery"/>
+            <img class="border-radius-50 zoom-in" src="https://www.tmacs-autodetailing.com/wp-content/uploads/2020/06/dodge-600x600.png" alt="Our detailing gallery" />
             <h1 class="pt-3 image-link">Gallery</h1>
         </a>
     </div>
     <div class="col text-center">
         <a style="text-decoration: none; color: white;" asp-area="" asp-controller="Orders" asp-action="Index" rel="nofollow">
-            <img class="border-radius-50 zoom-in" src="https://www.tmacs-autodetailing.com/wp-content/uploads/2020/06/rr-600x600.png" alt="Premium detailing orders"/>
+            <img class="border-radius-50 zoom-in" src="https://www.tmacs-autodetailing.com/wp-content/uploads/2020/06/rr-600x600.png" alt="Premium detailing orders" />
             <h1 class="pt-3 image-link">Packages</h1>
         </a>
     </div>
     <div class="col text-center">
         <a style="text-decoration: none; color: white;" class="image-link" asp-area="" asp-controller="Orders" asp-action="Create" rel="nofollow">
-            <img class="border-radius-50 zoom-in" src="https://www.tmacs-autodetailing.com/wp-content/uploads/2020/06/polish-600x600.png" alt="Order Premium detailing"/>
+            <img class="border-radius-50 zoom-in" src="https://www.tmacs-autodetailing.com/wp-content/uploads/2020/06/polish-600x600.png" alt="Order Premium detailing" />
             <h1 class="pt-3 image-link">Products</h1>
         </a>
     </div>
@@ -94,25 +94,28 @@
 <div class="container h-400 mb-100">
     <div class="row h-100">
         <div class="col-7">
-            <iframe id ="iframefield" class="w-100 h-100" 
+            <iframe id="iframefield" class="w-100 h-100"
                     src="@Model[0].IframeMapUrl" allowfullscreen"></iframe>
         </div>
         <div class="col-5">
-            <p>
-                Our Auto Detailing delights in serving Detailing in Riga and surrounding area’s.
-            </p>
-            <p>
-                We Look Forward To Meeting All Your Cleaning & Detail Needs!!!
-            </p>
             <h3>Contacts</h3>
-            @if (@Model.Count > 0)
-            {
-                <p id="countryfield">@Model[0].Country</p>
-                <p id="cityfield">@Model[0].City</p>
-                <p id="streetadressfield">@Model[0].StreetAdress</p>
-                <p id="phonenumberfield">@Model[0].PhoneNumber</p>
-                <p id="emailfield">@Model[0].Email</p>
-            }
+            <div class="col-5" itemscope itemtype="https://schema.org/Organization">
+                <p>
+                    Our Auto Detailing delights in serving Detailing in Riga and surrounding area’s.
+                </p>
+                <p>
+                    We Look Forward To Meeting All Your Cleaning &amp; Detail Needs!!!
+                </p>
+                <div itemscope itemtype="https://schema.org/PostalAddress">
+                    <h3>Contacts</h3>
+                    <p itemprop="name">Edgar Detailing</p>
+                    <p itemprop="addressLocality" id="countryfield">Latvija, Rīga</p>
+                    <p itemprop="streetAddress" id="streetadressfield">Raina bulvaris 19</p>
+                    <p itemprop="telephone" id="phonenumberfield">21233212</p>
+                    <p itemprop="email" id="emailfield">edetail@gmail.com</p>
+                </div>
+                <a class="button-red-border btn d-inline-block w-100" href="/Orders/Create">Schedule An Appointment &gt;</a>
+            </div>
             <a asp-controller="Orders" asp-action="Create" class="button-red-border btn d-inline-block w-100">Schedule An Appointment ></a>
         </div>
     </div>
@@ -163,5 +166,71 @@
         $("#streetadressfield").text(streetadress);
         $("#emailfield").text(email);
         document.getElementById("iframefield").src = iframelink;
+    }
+</script>
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "image": [
+        "https://lh3.googleusercontent.com/proxy/LYChX4XOHsYGqTIDkSWgmaS2MTA4EISkjrBSQagojzDlZrxJZ6C2CxgxG7KjyxKAuzfG-2w6SkhGRjzOpP-aW-z19FO_qMMgAuP4xLCECFdT0Ek",
+   "https://lh3.googleusercontent.com/proxy/FPIXmCnAH_Ss8tansg26Dh52aHWwhrKWCX5PUvCOniPnBCmtOnNp1PZJWqryPC7LueLEfmmvlP54EEWFBMbzsLzzyxOAQByd9sc65MdHMbfi-7E",
+        "https://img.zl.lv/infopage/photos/b/6/werkstatt-sia-autoserviss-automazgatava_b67ug_ap_03_800x400.jpg"
+       ],
+      "@id": "https://edgardetailing.azurewebsites.net/",
+      "name": "Edgar detailing",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Raina iela 19",
+        "addressRegion": "Rīga",
+        "postalCode": "LV-5601",
+        "addressCountry": "LV"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 40.761293,
+        "longitude": -73.982294
+      },
+      "url": "https://edgardetailing.azurewebsites.net/",
+      "telephone": "+37121233212",
+      "servesCuisine": "Latvian",
+      "priceRange": "€",
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "11:30",
+          "closes": "22:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "11:30",
+          "closes": "23:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "16:00",
+          "closes": "23:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Sunday",
+          "opens": "16:00",
+          "closes": "22:00"
+        }
+      ],
+      "acceptsReservations": "True"
     }
 </script>

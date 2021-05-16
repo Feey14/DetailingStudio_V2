@@ -35,20 +35,20 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
+                <tr itemscope itemtype="https://schema.org/Organization">
+                    <td itemprop="addressLocality">
                         @Html.DisplayFor(modelItem => item.Country)
                     </td>
-                    <td>
+                    <td >
                         @Html.DisplayFor(modelItem => item.City)
                     </td>
-                    <td>
+                    <td itemprop="telephone">
                         @Html.DisplayFor(modelItem => item.PhoneNumber)
                     </td>
-                    <td>
+                    <td itemprop="streetAddress">
                         @Html.DisplayFor(modelItem => item.StreetAdress)
                     </td>
-                    <td>
+                    <td itemprop="email">
                         @Html.DisplayFor(modelItem => item.Email)
                     </td>
                     <td>

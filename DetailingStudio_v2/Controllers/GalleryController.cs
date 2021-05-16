@@ -26,40 +26,41 @@ namespace DetailingStudio_v2.Controllers
         /// <returns></returns>
         public async Task<IActionResult> Index()
         {
-            HttpClient client = new HttpClient();
-            var token = "IGQVJWR2JHZAnFDNmJVblY4TUhnbUttWHVrYURmRTZARWDVSMG56R1g2YzBkUkNEdUJkMUVUUC1kWGVJbmRySVpERld1THZAKcHh4S29fMWVNeGxocjZAFTVhhOHZArR1hvYm1henYwckF0TVBmOTdOOTNyUQZDZD";
-            InstagramUser user = null;
-            HttpResponseMessage response = await client.GetAsync($"https://graph.instagram.com/me?fields=id,username&access_token={token}");
-            if (response.IsSuccessStatusCode)
-            {
-                user = await response.Content.ReadAsAsync<InstagramUser>();
-            }
+            /*            HttpClient client = new HttpClient();
+                        var token = _configuration["InstagramToken"];
+                        InstagramUser user = null;
+                        HttpResponseMessage response = await client.GetAsync($"https://graph.instagram.com/me?fields=id,username&access_token={token}");
+                        if (response.IsSuccessStatusCode)
+                        {
+                            user = await response.Content.ReadAsAsync<InstagramUser>();
+                        }
 
-            // Getting userData ids.
-            InstagramUserData userData = null;
-            response = await client.GetAsync($"https://graph.instagram.com/{user.id}/media?fields=id,caption&access_token={token}");
-            if (response.IsSuccessStatusCode)
-            {
-                userData = await response.Content.ReadAsAsync<InstagramUserData>();
-            }
+                        // Getting userData ids.
+                        InstagramUserData userData = null;
+                        response = await client.GetAsync($"https://graph.instagram.com/{user.id}/media?fields=id,caption&access_token={token}");
+                        if (response.IsSuccessStatusCode)
+                        {
+                            userData = await response.Content.ReadAsAsync<InstagramUserData>();
+                        }
 
-            // Getting user media id from userData getting only images.
-            List<InstagramPicture> instagramPictures = new List<InstagramPicture>();
-            foreach (var data in userData.data)
-            {
-                response = await client.GetAsync($"https://graph.instagram.com/{data.id}?fields=id,media_type,media_url,username,timestamp&access_token={token}");
-                if (response.IsSuccessStatusCode)
-                {
-                    InstagramPicture instagramPicture = null;
-                    instagramPicture = await response.Content.ReadAsAsync<InstagramPicture>();
-                    if (instagramPicture != null || instagramPicture.media_type != "IMAGE")
-                    {
-                        instagramPictures.Add(instagramPicture);
-                    }
-                }
-            }
+                        // Getting user media id from userData getting only images.
+                        List<InstagramPicture> instagramPictures = new List<InstagramPicture>();
+                        foreach (var data in userData.data)
+                        {
+                            response = await client.GetAsync($"https://graph.instagram.com/{data.id}?fields=id,media_type,media_url,username,timestamp&access_token={token}");
+                            if (response.IsSuccessStatusCode)
+                            {
+                                InstagramPicture instagramPicture = null;
+                                instagramPicture = await response.Content.ReadAsAsync<InstagramPicture>();
+                                if (instagramPicture != null || instagramPicture.media_type != "IMAGE")
+                                {
+                                    instagramPictures.Add(instagramPicture);
+                                }
+                            }
+                        }
 
-            return View(instagramPictures);
+                        return View(instagramPictures);*/
+            return View();
         }
     }
 }

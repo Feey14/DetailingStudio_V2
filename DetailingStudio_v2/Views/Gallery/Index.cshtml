@@ -6,29 +6,46 @@
 }
 
 <div class="container">
-    <h1>Gallery</h1>    
-    @for (int i = 0; i < Model.Count();)
-    {
+    <h1>Gallery</h1>
+    @*    @for (int i = 0; i < Model.Count();)
+        {
 
-        <div class="row">
-            @for (int j = 0; j < rowcount; j++)
-            {
-                if (i + j > Model.Count())
+            <div class="row">
+                @for (int j = 0; j < rowcount; j++)
                 {
-                    break;
-                }
-                else
-                {
-                    <div class="column">
-                        <img id="@i" src="@Model[i].media_url" onclick="reply_click(this.id)" style="width:100%">
-                    </div>
-                    i++;
-                }
+                    if (i + j > Model.Count())
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        <div class="column">
+                            <img id="@i" src="@Model[i].media_url" onclick="reply_click(this.id)" style="width:100%">
+                        </div>
+                        i++;
+                    }
 
-            }
+                }
+            </div>
+        }*@
+    <div id="product" itemprop="itemOffered" itemscope itemtype="https://schema.org/Car">
+        <strong itemprop="name">2009 Volkswagen Golf 3GTI MY09 Direct-Shift Gearbox</strong>
+        <p itemprop="description">
+            2009 Volkswagen Golf V GTI MY09 Direct-Shift Gearbox in perfect
+            mechanical condition and low kilometres. It's impressive 2.0 litre turbo engine makes
+            every drive a fun experience. Well looked after by one owner with full service history.
+            It drives like new and has only done 50,000kms. (...)
+        </p>
+        <img itemprop="image" href="https://ranwhenparkeddotnet.files.wordpress.com/2014/12/volkswagen-golf-mk2-rust-1.jpg" />
+        <p><strong>Color: </strong><span itemprop="color">White</span></p>
+        <p><strong>Number of gears: </strong><span itemprop="numberOfForwardGears">6</span></p>
+        <div itemprop="vehicleEngine" itemscope itemtype="https://schema.org/EngineSpecification">
+            <p>
+                <strong>Engine: </strong>
+                <span itemprop="name">4 cylinder Petrol Turbo Intercooled 2.0 L (1984 cc)</span>
+            </p>
         </div>
-
-    }
+    </div>
     <!-- The Modal -->
     <div id="myModal" class="modal">
         <span class="close">&times;</span>
